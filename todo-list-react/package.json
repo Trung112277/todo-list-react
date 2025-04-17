@@ -10,7 +10,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://Trung112277.github.io/todo-list-react",
+  "homepage": "https://trung112277.github.io/todo-list-react",
   "nx": {
     "includedScripts": []
   },
