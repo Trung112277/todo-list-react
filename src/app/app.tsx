@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button";
 
 export function App() {
   return (
-      <div className="flex flex-col items-center justify-center min-h-svh">
+      <div>
         <h1>Hello World</h1>
-      <Button variant="default" size="lg">Click me</Button>
     </div>
   );
 }
