@@ -1,14 +1,9 @@
-import NxWelcome from './nx-welcome';
-
-import { Route, Routes, Link } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
+import { AppRoutes } from './routes';
 
 export function App() {
-  return (
-      <div>
-        <h1>Hello World</h1>
-    </div>
-  );
+  return <div>
+    <AppRoutes />
+    </div>;
 }
 
 export default App;
