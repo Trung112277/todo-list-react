@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 /* You can add global styles to this file, and also import other style files */
+.form-check-input.data-\[state\=checked\]\:text-primary-foreground[data-state=checked]{
+  border-color: hsl(var(--primary));
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
