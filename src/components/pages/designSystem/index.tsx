@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { ButtonIcon } from '@/components/ui/buttonIcon';
 
 
 export function PageDesignSystem() {
@@ -48,12 +50,36 @@ export function PageDesignSystem() {
               </SelectContent>
             </Select>
           </div>
+          <div className="flex gap-5 items-center">
+            <h3 className="text-3xl font-medium min-w-40">Icon:</h3>
+            <div className="flex gap-4">
+              <div className="flex gap-3 items-center">
+                <h4 className="text-xl font-medium">Trash:</h4>
+                <ButtonIcon><FontAwesomeIcon icon={faTrashCan} /></ButtonIcon>
+              </div>
+              <div className="flex gap-3 items-center">
+                <h4 className="text-xl font-medium">Edit:</h4>
+                <ButtonIcon><FontAwesomeIcon icon={faTrashCan} /></ButtonIcon>
+              </div>
+              <div className="flex gap-3 items-center">
+                <h4 className="text-xl font-medium">Date:</h4>
+                <ButtonIcon><FontAwesomeIcon icon={faTrashCan} /></ButtonIcon>
+              </div>
+              <div className="flex gap-3 items-center">
+                <h4 className="text-xl font-medium">Sort:</h4>
+                <ButtonIcon><FontAwesomeIcon icon={faTrashCan} /></ButtonIcon>
+              </div>
+              <div className="flex gap-3 items-center">
+                <h4 className="text-xl font-medium">Index:</h4>
+                <ButtonIcon><FontAwesomeIcon icon={faTrashCan} /></ButtonIcon>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="w-1/2 flex flex-col gap-6">
         <h2 className="text-4xl font-semibold text-center text-primary">Molecules</h2>
         </div>
       </div>
-
     </div>
   );
 }
