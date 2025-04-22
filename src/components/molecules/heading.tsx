@@ -8,7 +8,7 @@ export function Heading() {
       <FontAwesomeIcon
         icon={faSquareCheck}
       /> 
-      Design System
+      <a href="/">Design System</a>
       </h1>
      
     </div>

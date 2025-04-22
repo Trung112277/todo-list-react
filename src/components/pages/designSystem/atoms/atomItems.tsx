@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTrashCan,
@@ -5,7 +6,8 @@ import {
   faInfo,
   faHourglass,
   faArrowDownShortWide,
-  faSquareCheck
+  faSquareCheck,
+  faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { Button } from '@/components/ui/button';
@@ -20,12 +22,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ButtonIcon } from '@/components/ui/buttonIcon';
-
-
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@radix-ui/react-popover';
 
 export function AtomItems() {
+  const [date, setDate] = React.useState<Date | undefined>(new Date());
   return (
-    <div className='flex flex-col gap-6'>
+    <div className="flex flex-col gap-6">
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Button:</h3>
         <Button>Button</Button>
@@ -54,6 +61,22 @@ export function AtomItems() {
             <SelectItem value="select-3">Select 3</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Popover :</h3>
+        <Popover>
+          <PopoverTrigger>Open</PopoverTrigger>
+          <PopoverContent>Place content for the popover here.</PopoverContent>
+        </Popover>
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Calendar:</h3>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          className="rounded-md border shadow"
+        />
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Icon button:</h3>
@@ -92,7 +115,14 @@ export function AtomItems() {
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Icon:</h3>
-        <FontAwesomeIcon className="text-6xl font-bold text-center text-primary" icon={faSquareCheck} />
+        <FontAwesomeIcon
+          className="text-6xl font-bold text-center text-primary"
+          icon={faSquareCheck}
+        />
+        <FontAwesomeIcon
+          className="text-xl font-semibold text-center text-primary"
+          icon={faCalendarDays}
+        />
       </div>
     </div>
   );

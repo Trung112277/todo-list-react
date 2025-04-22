@@ -20,7 +20,7 @@ export function PageDesignSystem() {
           <h2 className="text-4xl font-semibold text-center text-primary">
             Molecules
           </h2>
-          <MoleculeItems />
+          <MoleculeItems/>
         </div>
       </div>
     </div>
