@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/todo-list-react">
       <App />
     </BrowserRouter>
   </StrictMode>
