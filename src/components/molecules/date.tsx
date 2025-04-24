@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from '@radix-ui/react-popover';
+} from '@/components/ui/popover';
 
 export function DateItem() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());

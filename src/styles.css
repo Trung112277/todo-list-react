@@ -8,6 +8,15 @@
 .form-check-input.data-\[state\=checked\]\:text-primary-foreground[data-state=checked]{
   border-color: hsl(var(--primary));
 }
+li{
+  list-style: none;
+}
+.clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

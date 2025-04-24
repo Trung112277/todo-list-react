@@ -8,7 +8,7 @@ import { ButtonIcon } from '../ui/buttonIcon';
 
 export function FeatureBox() {
   return (
-    <div className="flex flex-col items-end">
+    <div className="flex flex-col items-end w-fit min-w-[140px]">
       <div className="flex gap-5 items-center w-fit ">
         <ButtonIcon className="text-blue-400">
           <FontAwesomeIcon icon={faPencil} />
