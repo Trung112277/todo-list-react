@@ -1,5 +1,6 @@
 import { AtomItems } from './atoms/atomItems';
 import { MoleculeItems } from './molecules/moleculeItems';
+import { OrganismsItems } from './organisms/organismsitems';
 
 export function PageDesignSystem() {
   return (
@@ -9,18 +10,24 @@ export function PageDesignSystem() {
           Design System
         </h1>
       </header>
-      <div className="flex gap-[50px] my-10">
-        <div className="w-1/2 flex flex-col gap-6">
+      <div className="grid grid-cols-2 grid-rows-2 gap-[50px] my-10">
+        <div className=" flex flex-col gap-6">
           <h2 className="text-4xl font-semibold text-center text-primary">
             Atoms
           </h2>
           <AtomItems />
         </div>
-        <div className="w-1/2 flex flex-col gap-6">
+        <div className=" flex flex-col gap-6">
           <h2 className="text-4xl font-semibold text-center text-primary">
             Molecules
           </h2>
-          <MoleculeItems/>
+          <MoleculeItems />
+        </div>
+        <div className=" flex flex-col gap-6">
+          <h2 className="text-4xl font-semibold text-center text-primary">
+            Organisms
+          </h2>
+          <OrganismsItems />
         </div>
       </div>
     </div>

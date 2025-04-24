@@ -1,9 +1,8 @@
-import { Heading } from '@/components/molecules/heading';
 import { DateItem } from '@/components/molecules/date';
-import { AddInput } from '@/components/molecules/addInput';
+import { AddInput } from '@/components/organisms/addInput';
 import { Filter } from '@/components/molecules/filter';
 import { Sort } from '@/components/molecules/sort';
-import { Actions } from '@/components/molecules/actions';
+import { Actions } from '@/components/organisms/actions';
 import { DueDateBox } from '@/components/molecules/dueDateBox';
 import { FeatureBox } from '@/components/molecules/featureBox';
 import { List } from '@/components/molecules/list';
@@ -12,17 +11,10 @@ export function MoleculeItems() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex gap-5 items-center">
-        <h3 className="text-3xl font-medium min-w-40">Heading:</h3>
-        <Heading />
-      </div>
-      <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Date:</h3>
         <DateItem />
       </div>
-      <div className="flex gap-5 items-center">
-        <h3 className="text-3xl font-medium min-w-40">Add input:</h3>
-        <AddInput />
-      </div>
+
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Filter Select:</h3>
         <Filter />
@@ -30,10 +22,6 @@ export function MoleculeItems() {
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Sort Select:</h3>
         <Sort />
-      </div>
-      <div className="flex gap-5 items-center">
-        <h3 className="text-3xl font-medium min-w-40">Actions:</h3>
-        <Actions />
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Due on date:</h3>
@@ -45,7 +33,7 @@ export function MoleculeItems() {
       </div>
       <div className="flex flex-col  gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40 text">List:</h3>
-        <List todo={'This is todo'} />
+        <List todo={'Todo List'} />
       </div>
     </div>
   );

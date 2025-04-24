@@ -11,7 +11,7 @@ export function List(props: { todo: string }) {
   return (
     <li className="flex gap-4 items-center w-full">
       <div className="flex gap-3 items-center justify-between w-full">
-        <Label className="flex gap-4 items-center">
+        <Label className="flex gap-4 items-center w-full">
           <Checkbox />
           <p className="clamp leading-[50px] pl-3">{props.todo}</p>
         </Label>
