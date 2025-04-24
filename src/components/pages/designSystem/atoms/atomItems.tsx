@@ -34,6 +34,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import SortToggleIcon from '@/components/ui/SortToggleIcon';
 
 export function AtomItems() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -118,9 +119,7 @@ export function AtomItems() {
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Sort:</h4>
-            <ButtonIcon className="text-green-500">
-              <FontAwesomeIcon icon={faArrowDownShortWide} />
-            </ButtonIcon>
+            <SortToggleIcon />
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Infor:</h4>

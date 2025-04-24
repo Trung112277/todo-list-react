@@ -3,6 +3,7 @@ import { DateItem } from '@/components/molecules/date';
 import { AddInput } from '@/components/molecules/addInput';
 import { Filter } from '@/components/molecules/filter';
 import { Sort } from '@/components/molecules/sort';
+import { Actions } from '@/components/molecules/actions';
 
 export function MoleculeItems() {
   return (
@@ -26,6 +27,10 @@ export function MoleculeItems() {
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Sort Select:</h3>
         <Sort />
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Actions:</h3>
+        <Actions />
       </div>
     </div>
   );
