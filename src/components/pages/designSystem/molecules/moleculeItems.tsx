@@ -5,6 +5,7 @@ import { Filter } from '@/components/molecules/filter';
 import { Sort } from '@/components/molecules/sort';
 import { Actions } from '@/components/molecules/actions';
 import { DueDateBox } from '@/components/molecules/dueDateBox';
+import { FeatureBox } from '@/components/molecules/featureBox';
 
 export function MoleculeItems() {
   return (
@@ -39,6 +40,7 @@ export function MoleculeItems() {
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Feature box:</h3>
+        <FeatureBox />
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">List item:</h3>

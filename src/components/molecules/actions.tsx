@@ -7,7 +7,7 @@ import SortToggleIcon from '../ui/SortToggleIcon';
 
 export function Actions() {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-3">
       <div className="flex gap-7">
         <Filter />
         <Sort />
