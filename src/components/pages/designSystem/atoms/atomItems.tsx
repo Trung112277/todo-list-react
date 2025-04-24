@@ -28,6 +28,12 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '@radix-ui/react-popover';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export function AtomItems() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -48,6 +54,17 @@ export function AtomItems() {
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Label:</h3>
         <Label>This is Label</Label>
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Tooltip:</h3>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>Tooltip</TooltipTrigger>
+            <TooltipContent>
+              <p>Add to library</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Select:</h3>
