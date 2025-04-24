@@ -136,7 +136,7 @@ export function AtomItems() {
           icon={faSquareCheck}
         />
         <FontAwesomeIcon
-          className="text-xl font-semibold text-center text-primary"
+          className="text-xl font-semibold text-center text-primary w-[20px]"
           icon={faCalendarDays}
         />
       </div>

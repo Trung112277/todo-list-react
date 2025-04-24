@@ -15,7 +15,7 @@ export function DateItem() {
       <Popover>
         <PopoverTrigger>
           <FontAwesomeIcon
-            className="text-xl font-semibold text-center text-primary"
+            className="text-xl font-semibold text-center text-primary w-[20px]"
             icon={faCalendarDays}
           />
         </PopoverTrigger>
