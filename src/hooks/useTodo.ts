@@ -22,5 +22,9 @@ export const useTodo = () => {
     setTodos(prev => [newTodo, ...prev]);
   }, []);
 
-  return { todos, addTodo };
+  const deleteTodo = useCallback((id: string) => {
+    setTodos(prev => prev.filter(todo => todo.id !== id));
+  }, []);
+
+  return { todos, addTodo, deleteTodo };
 };

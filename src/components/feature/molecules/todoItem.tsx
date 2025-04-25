@@ -5,11 +5,19 @@ import { FeatureBox } from './featureBox';
 
 interface TodoItemProps {
   todo: string;
+  id: string;
   dueDate?: string;
   createdAt: string;
+  onDelete: (id: string) => void;
 }
 
-export function TodoItem({ todo, dueDate, createdAt }: TodoItemProps) {
+export function TodoItem({ 
+  todo, 
+  id, 
+  dueDate, 
+  createdAt, 
+  onDelete 
+}: TodoItemProps) {
   return (
     <li className="flex gap-4 items-center w-full">
       <div className="flex gap-3 items-center justify-between w-full">
@@ -19,7 +27,11 @@ export function TodoItem({ todo, dueDate, createdAt }: TodoItemProps) {
         </Label>
         {dueDate && <DueDateBox dueDate={dueDate} />}
       </div>
-      <FeatureBox createdAt={createdAt} />
+      <FeatureBox 
+        createdAt={createdAt}
+        onDelete={() => onDelete(id)}
+        onEdit={() => {}}
+      />
     </li>
   );
 }
