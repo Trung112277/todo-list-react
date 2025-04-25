@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonIcon } from '../../ui/buttonIcon';
-import { faHourglass } from '@fortawesome/free-solid-svg-icons';
+import { faHourglass, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   Tooltip,
   TooltipContent,
@@ -16,13 +16,51 @@ import {
 } from 'date-fns';
 
 interface DueDateBoxProps {
-  dueDate: string;
+  dueDate?: string;
+  completed?: boolean;
+  completedAt?: string;
 }
 
-export function DueDateBox({ dueDate }: DueDateBoxProps) {
+export function DueDateBox({ dueDate, completed, completedAt }: DueDateBoxProps) {
+  if (completed) {
+    return (
+      <div className="flex gap-3 items-center border px-4 py-2 rounded-md w-fit min-w-[170px] bg-green-50 border-green-600 text-green-600 transition-colors">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <ButtonIcon className="text-green-600 hover:scale-110 transition-transform">
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </ButtonIcon>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              <div className="flex flex-col">
+                <span className="font-medium">Completed!</span>
+                {completedAt && (
+                  <span className="text-xs opacity-80">
+                    {format(new Date(completedAt), 'PPPPpp')}
+                  </span>
+                )}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="flex flex-col">
+          <span className="font-medium">Completed</span>
+          {completedAt && (
+            <span className="text-xs font-bold whitespace-nowrap text-center">
+              {format(new Date(completedAt), 'do MMM yyyy')}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (!dueDate) return null;
+
   const due = new Date(dueDate);
   const today = new Date();
-
+  
   const isOverdue = isBefore(due, today) && !isToday(due);
   const isDueToday = isToday(due);
   const isDueTomorrow = isTomorrow(due);
@@ -31,7 +69,7 @@ export function DueDateBox({ dueDate }: DueDateBoxProps) {
   let boxStyle = '';
   let statusText = '';
   let iconColor = '';
-
+  
   if (isOverdue) {
     boxStyle = 'bg-red-50/80 border-red-400 text-red-400 animate-pulse';
     statusText = 'Overdue!';

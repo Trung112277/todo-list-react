@@ -15,11 +15,23 @@ export const useTodo = () => {
     const newTodo = {
       id: Date.now().toString(),
       text,
-      completed: false,
+      completed: false, 
       createdAt: new Date().toISOString(),
-      dueDate: dueDate?.toISOString(),
+      dueDate: dueDate?.toISOString()
     };
-    setTodos((prev) => [newTodo, ...prev]);
+    setTodos(prev => [newTodo, ...prev]);
+  }, []);
+
+  const toggleTodo = useCallback((id: string) => {
+    setTodos(prev => prev.map(todo => 
+      todo.id === id 
+        ? { 
+            ...todo, 
+            completed: !todo.completed,
+            completedAt: !todo.completed ? new Date().toISOString() : undefined
+          } 
+        : todo
+    ));
   }, []);
 
   const deleteTodo = useCallback((id: string) => {
@@ -32,5 +44,5 @@ export const useTodo = () => {
     );
   }, []);
 
-  return { todos, addTodo, deleteTodo, editTodo };
+  return { todos, addTodo, deleteTodo, editTodo, toggleTodo };
 };

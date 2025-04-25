@@ -9,11 +9,24 @@ interface TodoItemProps {
   todo: string;
   dueDate?: string;
   createdAt: string;
+  completed: boolean;
+  completedAt: string;
   onDelete: (id: string) => void;
   onEdit: (id: string, newText: string) => void;
+  onToggle: (id: string) => void;
 }
 
-export function TodoItem({ id, todo, dueDate, createdAt, onDelete, onEdit }: TodoItemProps) {
+export function TodoItem({
+  id,
+  todo,
+  dueDate,
+  createdAt,
+  completed,
+  completedAt,
+  onDelete,
+  onEdit,
+  onToggle,
+}: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(todo);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,7 +62,10 @@ export function TodoItem({ id, todo, dueDate, createdAt, onDelete, onEdit }: Tod
     <li className="flex gap-4 items-center w-full group">
       <div className="flex gap-3 items-center justify-between w-full">
         <Label className="flex gap-4 items-center w-full">
-          <Checkbox />
+        <Checkbox 
+            checked={completed}
+            onCheckedChange={() => onToggle(id)}
+          />
           {isEditing ? (
             <input
               ref={inputRef}
@@ -66,10 +82,14 @@ export function TodoItem({ id, todo, dueDate, createdAt, onDelete, onEdit }: Tod
             </p>
           )}
         </Label>
-        {dueDate && <DueDateBox dueDate={dueDate} />}
+        {dueDate && <DueDateBox 
+  dueDate={dueDate} 
+  completed={completed}
+  completedAt={completedAt}
+/>}
       </div>
-      <FeatureBox 
-        createdAt={createdAt} 
+      <FeatureBox
+        createdAt={createdAt}
         onDelete={() => onDelete(id)}
         onEdit={handleEdit}
       />
