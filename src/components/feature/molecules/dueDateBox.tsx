@@ -7,8 +7,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { format } from 'date-fns';
 
-export function DueDateBox() {
+interface DueDateBoxProps {
+  dueDate: string;
+}
+
+export function DueDateBox({ dueDate }: DueDateBoxProps) {
+  const formattedDate = format(new Date(dueDate), 'do MMM yyyy');
+  
   return (
     <div className="flex gap-3 items-center border border-orange-400 px-4 py-2 rounded-md w-fit min-w-[170px] bg-white">
       <TooltipProvider>
@@ -19,11 +26,13 @@ export function DueDateBox() {
             </ButtonIcon>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Due on date</p>
+            <p>Due on {formattedDate}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <p className="font-medium text-black-500"> 28th Jun 2020</p>
+      <time className="font-medium text-black-500" dateTime={dueDate}>
+        {formattedDate}
+      </time>
     </div>
   );
 }

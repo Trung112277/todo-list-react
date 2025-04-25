@@ -11,11 +11,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { format } from 'date-fns';
 
-export function FeatureBox() {
+interface FeatureBoxProps {
+  createdAt: string;
+}
+
+export function FeatureBox({ createdAt }: FeatureBoxProps) {
   return (
     <div className="flex flex-col items-end w-fit min-w-[140px]">
-      <div className="flex gap-5 items-center w-fit ">
+      <div className="flex gap-5 items-center w-fit">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
@@ -47,7 +52,9 @@ export function FeatureBox() {
             <ButtonIcon className="text-[10px] bg-gray-500 rounded-[50%] p-0 w-5 h-5 flex justify-center items-center">
               <FontAwesomeIcon icon={faInfo} />
             </ButtonIcon>
-            <p className="font-medium text-gray-500">28th Jun 2020</p>
+            <time className="font-medium text-gray-500" dateTime={createdAt}>
+              {format(new Date(createdAt), 'MMM dd, yyyy')}
+            </time>
           </TooltipTrigger>
           <TooltipContent>
             <p>Created date</p>

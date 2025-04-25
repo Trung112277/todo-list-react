@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Todo } from '../types/todo';
 
 export const useTodo = () => {
@@ -11,15 +11,16 @@ export const useTodo = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (text: string, dueDate?: string) => {
-    setTodos([...todos, {
+  const addTodo = useCallback((text: string, dueDate?: Date) => {
+    const newTodo = {
       id: Date.now().toString(),
       text,
       completed: false,
       createdAt: new Date().toISOString(),
-      dueDate
-    }]);
-  };
+      dueDate: dueDate?.toISOString()
+    };
+    setTodos(prev => [newTodo, ...prev]);
+  }, []);
 
   return { todos, addTodo };
 };
