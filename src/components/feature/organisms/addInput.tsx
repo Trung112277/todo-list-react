@@ -1,6 +1,6 @@
-import { Input } from '../ui/input';
+import { Input } from '../../ui/input';
 import { DateItem } from '../molecules/date';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 
 export function AddInput() {
   return (

@@ -1,7 +1,7 @@
-import { Actions } from '@/components/organisms/actions';
-import { AddInput } from '@/components/organisms/addInput';
-import { Heading } from '@/components/organisms/heading';
-import { TodoLists } from '@/components/organisms/todoLists';
+import { Actions } from '@/components/feature/organisms/actions';
+import { AddInput } from '@/components/feature/organisms/addInput';
+import { Heading } from '@/components/feature/organisms/heading';
+import { TodoLists } from '@/components/feature/organisms/todoLists';
 
 export function PageHome() {
   return (

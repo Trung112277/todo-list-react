@@ -4,7 +4,7 @@ import {
   faPencil,
   faInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import { ButtonIcon } from '../ui/buttonIcon';
+import { ButtonIcon } from '../../ui/buttonIcon';
 import {
   Tooltip,
   TooltipContent,

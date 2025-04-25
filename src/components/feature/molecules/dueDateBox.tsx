@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonIcon } from '../ui/buttonIcon';
+import { ButtonIcon } from '../../ui/buttonIcon';
 import { faHourglass } from '@fortawesome/free-solid-svg-icons';
 import {
   Tooltip,

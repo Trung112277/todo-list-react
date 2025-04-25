@@ -7,7 +7,7 @@ interface ListProps {
   todo: string;
 }
 
-export function List(props: { todo: string }) {
+export function TodoItem(props: { todo: string }) {
   return (
     <li className="flex gap-4 items-center w-full">
       <div className="flex gap-3 items-center justify-between w-full">

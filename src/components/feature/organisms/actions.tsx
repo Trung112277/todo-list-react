@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDownShortWide } from '@fortawesome/free-solid-svg-icons';
 import { Filter } from '../molecules/filter';
 import { Sort } from '../molecules/sort';
-import { ButtonIcon } from '../ui/buttonIcon';
-import SortToggleIcon from '../ui/SortToggleIcon';
+import { ButtonIcon } from '../../ui/buttonIcon';
+import SortToggleIcon from '../../ui/SortToggleIcon';
 
 export function Actions() {
   return (

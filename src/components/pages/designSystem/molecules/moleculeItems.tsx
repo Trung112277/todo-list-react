@@ -1,11 +1,11 @@
-import { DateItem } from '@/components/molecules/date';
-import { AddInput } from '@/components/organisms/addInput';
-import { Filter } from '@/components/molecules/filter';
-import { Sort } from '@/components/molecules/sort';
-import { Actions } from '@/components/organisms/actions';
-import { DueDateBox } from '@/components/molecules/dueDateBox';
-import { FeatureBox } from '@/components/molecules/featureBox';
-import { List } from '@/components/molecules/list';
+import { DateItem } from '@/components/feature/molecules/date';
+import { AddInput } from '@/components/feature/organisms/addInput';
+import { Filter } from '@/components/feature/molecules/filter';
+import { Sort } from '@/components/feature/molecules/sort';
+import { Actions } from '@/components/feature/organisms/actions';
+import { DueDateBox } from '@/components/feature/molecules/dueDateBox';
+import { FeatureBox } from '@/components/feature/molecules/featureBox';
+import { TodoItem } from '@/components/feature/molecules/todoItem';
 
 export function MoleculeItems() {
   return (
@@ -33,7 +33,7 @@ export function MoleculeItems() {
       </div>
       <div className="flex flex-col  gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40 text">List:</h3>
-        <List todo={'Todo List'} />
+        <TodoItem todo={'Todo List'} />
       </div>
     </div>
   );
