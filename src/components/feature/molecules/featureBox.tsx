@@ -104,7 +104,7 @@ export function FeatureBox({ createdAt, onDelete, onEdit }: FeatureBoxProps) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="font-medium text-gray-500 text-sm">
               This action cannot be undone. This will permanently delete your
               task and remove it from our servers.
             </AlertDialogDescription>
