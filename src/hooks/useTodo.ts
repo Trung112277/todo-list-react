@@ -17,14 +17,20 @@ export const useTodo = () => {
       text,
       completed: false,
       createdAt: new Date().toISOString(),
-      dueDate: dueDate?.toISOString()
+      dueDate: dueDate?.toISOString(),
     };
-    setTodos(prev => [newTodo, ...prev]);
+    setTodos((prev) => [newTodo, ...prev]);
   }, []);
 
   const deleteTodo = useCallback((id: string) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }, []);
 
-  return { todos, addTodo, deleteTodo };
+  const editTodo = useCallback((id: string, newText: string) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
+    );
+  }, []);
+
+  return { todos, addTodo, deleteTodo, editTodo };
 };

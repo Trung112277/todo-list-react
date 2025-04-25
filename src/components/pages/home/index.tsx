@@ -5,7 +5,7 @@ import { TodoLists } from '@/components/feature/organisms/todoLists';
 import { useTodo } from '@/hooks/useTodo';
 
 export function PageHome() {
-  const { todos, addTodo, deleteTodo } = useTodo(); 
+  const { todos, addTodo, deleteTodo, editTodo  } = useTodo();
   return (
     <div className="container max-w-screen-xl mx-auto my-10 font-sans px-6">
       <div className="flex flex-col gap-10 bg-gray-100 rounded-lg shadow-lg p-10">
@@ -15,7 +15,11 @@ export function PageHome() {
         <div className="flex justify-end">
           <Actions />
         </div>
-        <TodoLists todos={todos} onDeleteTodo={deleteTodo} />
+        <TodoLists
+          todos={todos}
+          onDeleteTodo={deleteTodo}
+          onEditTodo={editTodo}
+        />
       </div>
     </div>
   );

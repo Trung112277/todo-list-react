@@ -17,6 +17,10 @@ li{
   overflow: hidden;
   -webkit-line-clamp: 1;
 }
+label:has(button[data-state="checked"]) p {
+  text-decoration: line-through;
+  color: rgb(192, 192, 192);
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
