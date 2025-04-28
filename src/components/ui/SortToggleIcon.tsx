@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowDownShortWide,
@@ -12,25 +12,24 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-const SortToggleIcon = () => {
-  const [asc, setAsc] = useState(true);
+interface SortToggleIconProps {
+  sortOrder: 'asc' | 'desc';
+  onToggleSortOrder: () => void;
+}
 
-  const toggleSort = () => {
-    setAsc((prev) => !prev);
-  };
-
+const SortToggleIcon = ({ sortOrder, onToggleSortOrder }: SortToggleIconProps) => {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <ButtonIcon onClick={toggleSort} className="text-green-500">
+          <ButtonIcon onClick={onToggleSortOrder} className="text-green-500">
             <FontAwesomeIcon
-              icon={asc ? faArrowDownShortWide : faArrowUpShortWide}
+              icon={sortOrder === 'desc' ? faArrowDownShortWide : faArrowUpShortWide}
             />
           </ButtonIcon>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Ascending</p>
+          <p>{sortOrder === 'desc' ? 'Descending' : 'Ascending'}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

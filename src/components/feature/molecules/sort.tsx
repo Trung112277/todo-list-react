@@ -6,17 +6,21 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function Sort() {
+interface SortProps {
+  onSortChange: (value: 'createdAt' | 'dueDate') => void;
+}
+
+export function Sort({ onSortChange }: SortProps) {
   return (
     <div className="flex gap-3 items-center">
-      <p className="font-medium text-gray-500">Sort</p>
-      <Select defaultValue="added-date">
+      <p className="font-medium text-gray-500">Sort by</p>
+      <Select defaultValue="createdAt" onValueChange={(value) => onSortChange(value as 'createdAt' | 'dueDate')}>
         <SelectTrigger className="w-[200px]">
-          <SelectValue />
+          <SelectValue placeholder="Select sort" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="added-date">Added date</SelectItem>
-          <SelectItem value="due-date">Due date</SelectItem>
+          <SelectItem value="createdAt">Added Date</SelectItem>
+          <SelectItem value="dueDate">Due Date</SelectItem>
         </SelectContent>
       </Select>
     </div>
