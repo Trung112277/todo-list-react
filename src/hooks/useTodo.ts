@@ -44,5 +44,20 @@ export const useTodo = () => {
     );
   }, []);
 
-  return { todos, addTodo, deleteTodo, editTodo, toggleTodo };
+  // ✅ Hàm lọc todos (filterTodos)
+  const filterTodos = useCallback((filterType: string) => {
+    switch (filterType) {
+      case 'completed':
+        return todos.filter(todo => todo.completed);
+      case 'active':
+        return todos.filter(todo => !todo.completed);
+      case 'has-due-date':
+        return todos.filter(todo => todo.dueDate);
+      case 'all':
+      default:
+        return todos;
+    }
+  }, [todos]);
+
+  return { todos, addTodo, deleteTodo, editTodo, toggleTodo, filterTodos };
 };

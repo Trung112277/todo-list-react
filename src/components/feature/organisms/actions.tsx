@@ -5,11 +5,15 @@ import { Sort } from '../molecules/sort';
 import { ButtonIcon } from '../../ui/buttonIcon';
 import SortToggleIcon from '../../ui/SortToggleIcon';
 
-export function Actions() {
+interface ActionsProps {
+  onFilterChange: (value: string) => void;
+}
+
+export function Actions({ onFilterChange }: ActionsProps) {
   return (
     <div className="flex gap-3">
       <div className="flex gap-7">
-        <Filter />
+        <Filter onFilterChange={onFilterChange} />
         <Sort />
       </div>
       <SortToggleIcon />

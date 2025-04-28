@@ -6,13 +6,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function Filter() {
+interface FilterProps {
+  onFilterChange: (value: string) => void;
+}
+
+export function Filter({ onFilterChange }: FilterProps) {
   return (
     <div className="flex gap-3 items-center">
       <p className="font-medium text-gray-500">Filter</p>
-      <Select defaultValue="all">
+      <Select defaultValue="all" onValueChange={onFilterChange}>
         <SelectTrigger className="w-[200px]">
-          <SelectValue />
+          <SelectValue placeholder="Select filter" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All</SelectItem>

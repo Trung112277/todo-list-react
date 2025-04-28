@@ -25,8 +25,7 @@ export function TodoLists({
           completed={todo.completed}
           onDelete={onDeleteTodo}
           onEdit={onEditTodo}
-          onToggle={onToggleTodo}
-        />
+          onToggle={onToggleTodo} completedAt={''}        />
       ))}
     </ul>
   );

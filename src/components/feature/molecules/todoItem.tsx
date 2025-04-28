@@ -62,10 +62,7 @@ export function TodoItem({
     <li className="flex gap-4 items-center w-full group">
       <div className="flex gap-3 items-center justify-between w-full">
         <Label className="flex gap-4 items-center w-full">
-        <Checkbox 
-            checked={completed}
-            onCheckedChange={() => onToggle(id)}
-          />
+          <Checkbox checked={completed} onCheckedChange={() => onToggle(id)} />
           {isEditing ? (
             <input
               ref={inputRef}
@@ -82,11 +79,13 @@ export function TodoItem({
             </p>
           )}
         </Label>
-        {dueDate && <DueDateBox 
-  dueDate={dueDate} 
-  completed={completed}
-  completedAt={completedAt}
-/>}
+        {dueDate && (
+          <DueDateBox
+            dueDate={dueDate}
+            completed={completed}
+            completedAt={completedAt}
+          />
+        )}
       </div>
       <FeatureBox
         createdAt={createdAt}
