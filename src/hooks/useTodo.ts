@@ -44,7 +44,6 @@ export const useTodo = () => {
     );
   }, []);
 
-  // ✅ Hàm lọc todos (filterTodos)
   const filterTodos = useCallback((filterType: string) => {
     switch (filterType) {
       case 'completed':

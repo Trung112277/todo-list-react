@@ -79,13 +79,11 @@ export function TodoItem({
             </p>
           )}
         </Label>
-        {dueDate && (
-          <DueDateBox
-            dueDate={dueDate}
-            completed={completed}
-            completedAt={completedAt}
-          />
-        )}
+        <DueDateBox
+          dueDate={dueDate}
+          completed={completed}
+          completedAt={completedAt}
+        />
       </div>
       <FeatureBox
         createdAt={createdAt}
