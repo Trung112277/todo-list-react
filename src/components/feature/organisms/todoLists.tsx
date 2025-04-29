@@ -14,7 +14,7 @@ export function TodoLists({
   onToggleTodo,
 }: TodoListsProps) {
   return (
-    <ul className="flex flex-col gap-5">
+    <ul className="flex flex-col md:gap-5 gap-3">
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

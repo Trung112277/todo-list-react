@@ -12,10 +12,10 @@ interface SortProps {
 
 export function Sort({ onSortChange }: SortProps) {
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex md:gap-3 gap-2 items-center flex-col md:flex-row w-full max-w-[400px]">
       <p className="font-medium text-gray-500">Sort by</p>
       <Select defaultValue="createdAt" onValueChange={(value) => onSortChange(value as 'createdAt' | 'dueDate')}>
-        <SelectTrigger className="w-[200px]">
+      <SelectTrigger >
           <SelectValue placeholder="Select sort" />
         </SelectTrigger>
         <SelectContent>

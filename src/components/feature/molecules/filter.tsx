@@ -12,10 +12,10 @@ interface FilterProps {
 
 export function Filter({ onFilterChange }: FilterProps) {
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex md:gap-3 gap-2 items-center flex-col md:flex-row w-full max-w-[400px]">
       <p className="font-medium text-gray-500">Filter</p>
       <Select defaultValue="all" onValueChange={onFilterChange}>
-        <SelectTrigger className="w-[200px]">
+        <SelectTrigger >
           <SelectValue placeholder="Select filter" />
         </SelectTrigger>
         <SelectContent>

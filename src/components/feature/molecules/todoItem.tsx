@@ -59,8 +59,8 @@ export function TodoItem({
   }, [isEditing]);
 
   return (
-    <li className="flex gap-4 items-center w-full group">
-      <div className="flex gap-3 items-center justify-between w-full">
+    <li className="flex  gap-4 items-center w-full group flex-col md:flex-row">
+      <div className="flex gap-3 items-center justify-between w-full flex-col sm:flex-row">
         <Label className="flex gap-4 items-center w-full">
           <Checkbox checked={completed} onCheckedChange={() => onToggle(id)} />
           {isEditing ? (
@@ -74,7 +74,7 @@ export function TodoItem({
               className="pl-3 py-2 border-b-2 border-blue-500 bg-blue-50 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-200"
             />
           ) : (
-            <p className="clamp leading-[50px] pl-3 group-hover:bg-gray-100 transition-colors rounded-md">
+            <p className="clamp leading-[50px] md:pl-3 pl-0  group-hover:bg-gray-100 transition-colors rounded-md">
               {todo}
             </p>
           )}
@@ -90,6 +90,7 @@ export function TodoItem({
         onDelete={() => onDelete(id)}
         onEdit={handleEdit}
       />
+        <hr className="border border-t border-gray-400 opacity-25 w-full md:hidden" />
     </li>
   );
 }

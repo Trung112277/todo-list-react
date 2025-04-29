@@ -11,7 +11,7 @@ interface ActionsProps {
 
 export function Actions({ onFilterChange, onSortChange, sortOrder, onToggleSortOrder }: ActionsProps) {
   return (
-    <div className="flex gap-7 items-center">
+    <div className="flex md:gap-7 gap-4 items-center flex-col md:flex-row w-full md:w-fit">
       <Filter onFilterChange={onFilterChange} />
       <Sort onSortChange={onSortChange} />
       <SortToggleIcon sortOrder={sortOrder} onToggleSortOrder={onToggleSortOrder} />

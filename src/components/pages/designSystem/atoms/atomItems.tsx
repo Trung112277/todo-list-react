@@ -119,7 +119,9 @@ export function AtomItems() {
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Sort:</h4>
-            <SortToggleIcon />
+            <SortToggleIcon sortOrder={'desc'} onToggleSortOrder={function (): void {
+              throw new Error('Function not implemented.');
+            } } />
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Infor:</h4>

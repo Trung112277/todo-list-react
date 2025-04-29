@@ -40,8 +40,8 @@ export function FeatureBox({ createdAt, onDelete, onEdit }: FeatureBoxProps) {
 
   return (
     <>
-      <div className="flex flex-col items-end w-fit min-w-[140px]">
-        <div className="flex gap-5 items-center w-fit">
+      <div className="flex md:flex-col flex-row-reverse md:items-end w-fit xl:min-w-[140px] min-w-[120px] items-center gap-5 md:gap-0">
+        <div className="flex md:gap-5 items-center w-fit gap-4">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -79,7 +79,7 @@ export function FeatureBox({ createdAt, onDelete, onEdit }: FeatureBoxProps) {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="flex items-center gap-3 mt-2">
+            <TooltipTrigger className="flex items-center gap-3 md:mt-2 mt-0">
               <ButtonIcon
                 className="text-[10px] bg-gray-500 text-white rounded-full p-0 w-5 h-5 flex justify-center items-center "
                 aria-label="Creation date"

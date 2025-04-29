@@ -78,12 +78,12 @@ export function PageHome() {
   };
 
   return (
-    <div className="container max-w-screen-xl mx-auto my-10 font-sans px-6">
-      <div className="flex flex-col gap-10 bg-gray-100 rounded-lg shadow-lg p-10">
+    <div className="container max-w-screen-xl mx-auto xl:my-10 font-sans px-6 my-6">
+      <div className="flex flex-col xl:gap-10 gap-7 bg-gray-100 rounded-lg shadow-lg xl:p-10 p-6">
         <Heading />
         <AddInput onAdd={addTodo} />
         <hr className="border border-t border-gray-600 opacity-25" />
-        <div className="flex justify-end items-center">
+        <div className="flex sm:justify-end justify-center items-center">
           <Actions
             onFilterChange={handleFilterChange}
             onSortChange={handleSortChange}
