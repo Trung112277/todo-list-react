@@ -5,42 +5,61 @@ import { AddInput } from '@/components/feature/organisms/addInput';
 import { TodoLists } from '@/components/feature/organisms/todoLists';
 import { useTodo } from '@/hooks/useTodo';
 import { Todo } from '@/types/todo';
+
 export function PageHome() {
-  const { todos, addTodo, deleteTodo, editTodo, toggleTodo } = useTodo();
+  const { todos, addTodo, deleteTodo, editTodo, toggleTodo, reorderTodo } = useTodo();
   const [filterType, setFilterType] = useState('all');
-  const [sortType, setSortType] = useState<'createdAt' | 'dueDate'>(
-    'createdAt'
-  );
+  const [sortType, setSortType] = useState<'createdAt' | 'dueDate'>('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [isDragging, setIsDragging] = useState(false);
+  const [manualOrder, setManualOrder] = useState<string[]>([]);
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
+    // Reset thứ tự thủ công khi thay đổi bộ lọc
+    setManualOrder([]);
   };
 
   const handleSortChange = (sortType: 'createdAt' | 'dueDate') => {
     setSortType(sortType);
+    // Reset thứ tự thủ công khi thay đổi kiểu sắp xếp
+    setManualOrder([]);
   };
 
   const handleToggleSortOrder = () => {
     setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
+    // Reset thứ tự thủ công khi thay đổi thứ tự sắp xếp
+    setManualOrder([]);
   };
 
   const getFilteredTodos = () => {
+    let filtered = todos;
+    
+    // Áp dụng bộ lọc
     switch (filterType) {
       case 'completed':
-        return todos.filter((todo) => todo.completed);
+        filtered = todos.filter((todo) => todo.completed);
+        break;
       case 'active':
-        return todos.filter((todo) => !todo.completed);
+        filtered = todos.filter((todo) => !todo.completed);
+        break;
       case 'has-due-date':
-        return todos.filter((todo) => todo.dueDate);
-      case 'all':
-      default:
-        return todos;
+        filtered = todos.filter((todo) => todo.dueDate);
+        break;
     }
-  };
 
-  const sortTodos = (todos: Todo[]) => {
-    const sorted = [...todos].sort((a, b) => {
+    // Nếu có thứ tự thủ công, sử dụng thứ tự đó
+    if (manualOrder.length > 0) {
+      const orderMap = new Map(manualOrder.map((id, index) => [id, index]));
+      return filtered.sort((a, b) => {
+        const aIndex = orderMap.get(a.id) ?? Infinity;
+        const bIndex = orderMap.get(b.id) ?? Infinity;
+        return aIndex - bIndex;
+      });
+    }
+
+    // Nếu không có thứ tự thủ công, sử dụng sắp xếp tự động
+    return filtered.sort((a, b) => {
       const aDate =
         sortType === 'createdAt'
           ? new Date(a.createdAt)
@@ -57,11 +76,34 @@ export function PageHome() {
         ? bDate.getTime() - aDate.getTime()
         : aDate.getTime() - bDate.getTime();
     });
-
-    return sorted;
   };
 
-  const filteredTodos = sortTodos(getFilteredTodos());
+  const handleDragStart = () => {
+    setIsDragging(true);
+    // Lưu thứ tự hiện tại khi bắt đầu kéo
+    if (manualOrder.length === 0) {
+      setManualOrder(todos.map(todo => todo.id));
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  const handleReorder = (activeId: string, overId: string) => {
+    reorderTodo(activeId, overId);
+    // Cập nhật thứ tự thủ công
+    setManualOrder(prev => {
+      const oldIndex = prev.indexOf(activeId);
+      const newIndex = prev.indexOf(overId);
+      const newOrder = [...prev];
+      const [removed] = newOrder.splice(oldIndex, 1);
+      newOrder.splice(newIndex, 0, removed);
+      return newOrder;
+    });
+  };
+
+  const filteredTodos = getFilteredTodos();
 
   const getEmptyMessage = () => {
     switch (filterType) {
@@ -98,6 +140,9 @@ export function PageHome() {
             onDeleteTodo={deleteTodo}
             onEditTodo={editTodo}
             onToggleTodo={toggleTodo}
+            onReorderTodo={handleReorder}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
           />
         ) : (
           <div className="text-center text-gray-500 py-10">

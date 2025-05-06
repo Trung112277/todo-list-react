@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Todo } from '../types/todo';
+import { arrayMove } from '@dnd-kit/sortable';
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>(() => {
@@ -44,6 +45,15 @@ export const useTodo = () => {
     );
   }, []);
 
+  const reorderTodo = useCallback((activeId: string, overId: string) => {
+    setTodos((items) => {
+      const oldIndex = items.findIndex((item) => item.id === activeId);
+      const newIndex = items.findIndex((item) => item.id === overId);
+      
+      return arrayMove(items, oldIndex, newIndex);
+    });
+  }, []);
+
   const filterTodos = useCallback((filterType: string) => {
     switch (filterType) {
       case 'completed':
@@ -58,5 +68,5 @@ export const useTodo = () => {
     }
   }, [todos]);
 
-  return { todos, addTodo, deleteTodo, editTodo, toggleTodo, filterTodos };
+  return { todos, addTodo, deleteTodo, editTodo, toggleTodo, reorderTodo, filterTodos };
 };

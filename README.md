@@ -1,3 +1,66 @@
+# Todo List React
+
+A modern Todo List application built with React, TypeScript, and Tailwind CSS.
+
+## Features
+
+- Create, edit, and delete todos
+- Mark todos as complete/incomplete
+- Set due dates for todos
+- Filter todos by status (all, active, completed, has due date)
+- Sort todos by creation date or due date
+- Drag and drop to reorder todos
+- Responsive design
+- Dark mode support
+
+## Technologies Used
+
+- React
+- TypeScript
+- Tailwind CSS
+- @dnd-kit (for drag and drop functionality)
+- Vite
+- Nx
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/todo-list-react.git
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run start
+```
+
+4. Open [http://localhost:4200/todo-list-react](http://localhost:4200/todo-list-react) in your browser.
+
+## Project Structure
+
+```
+src/
+  ├── components/     # React components
+  │   ├── feature/   # Feature components
+  │   └── pages/     # Page components
+  ├── hooks/         # Custom React hooks
+  ├── types/         # TypeScript type definitions
+  └── utils/         # Utility functions
+```
+
+## Contributing
+
+Feel free to submit issues and pull requests.
+
+## License
+
+MIT
+
 # TodoListReact
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
