@@ -1,5 +1,5 @@
 import { TodoItem } from '../molecules/todoItem';
-import { Todo } from '../../../types/todo';
+import { Todo } from '@/types/todo';
 import {
   DndContext,
   closestCenter,
@@ -74,42 +74,38 @@ export function TodoLists({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext
-        items={todos.map((todo) => todo.id)}
-        strategy={verticalListSortingStrategy}
-      >
-        <ul className="flex flex-col md:gap-5 gap-3 w-full">
-          {todos.map((todo) => (
+      <SortableContext items={todos.map(todo => todo.id)} strategy={verticalListSortingStrategy}>
+        <ul className="flex flex-col gap-4 w-full">
+          {todos.map(todo => (
             <TodoItem
               key={todo.id}
               id={todo.id}
               todo={todo.text}
-              dueDate={todo.dueDate}
-              createdAt={todo.createdAt}
               completed={todo.completed}
+              createdAt={todo.createdAt}
+              dueDate={todo.dueDate}
+              completedAt={todo.completedAt || ''}
               onDelete={onDeleteTodo}
               onEdit={onEditTodo}
               onToggle={onToggleTodo}
-              completedAt={todo.completedAt || ''}
             />
           ))}
         </ul>
       </SortableContext>
+
       <DragOverlay>
         {activeTodo ? (
-          <div className="opacity-50">
-            <TodoItem
-              id={activeTodo.id}
-              todo={activeTodo.text}
-              dueDate={activeTodo.dueDate}
-              createdAt={activeTodo.createdAt}
-              completed={activeTodo.completed}
-              onDelete={onDeleteTodo}
-              onEdit={onEditTodo}
-              onToggle={onToggleTodo}
-              completedAt={activeTodo.completedAt || ''}
-            />
-          </div>
+          <TodoItem
+            id={activeTodo.id}
+            todo={activeTodo.text}
+            completed={activeTodo.completed}
+            createdAt={activeTodo.createdAt}
+            dueDate={activeTodo.dueDate}
+            completedAt={activeTodo.completedAt || ''}
+            onDelete={onDeleteTodo}
+            onEdit={onEditTodo}
+            onToggle={onToggleTodo}
+          />
         ) : null}
       </DragOverlay>
     </DndContext>

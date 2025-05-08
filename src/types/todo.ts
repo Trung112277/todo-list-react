@@ -3,6 +3,7 @@ export interface Todo {
   text: string;
   completed: boolean;
   createdAt: string;
-  dueDate?: string;
   completedAt?: string;
-}
+  dueDate?: string;
+  archived: boolean;
+} 

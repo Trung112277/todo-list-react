@@ -6,10 +6,10 @@ import { SearchInput } from '@/components/feature/organisms/searchInput';
 import { TodoLists } from '@/components/feature/organisms/todoLists';
 import { BulkActions } from '@/components/feature/molecules/bulkActions';
 import { useTodo } from '@/hooks/useTodo';
-import { Todo } from '@/types/todo';
+import type { Todo } from '@/types/todo';
 
 export function PageHome() {
-  const { todos, addTodo, deleteTodo, editTodo, toggleTodo, reorderTodo } = useTodo();
+  const { todos, addTodo, deleteTodo, editTodo, toggleTodo, reorderTodo, updateTodos } = useTodo();
   const [filterType, setFilterType] = useState('all');
   const [sortType, setSortType] = useState<'createdAt' | 'dueDate'>('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
@@ -20,130 +20,87 @@ export function PageHome() {
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
-    // Reset thứ tự thủ công khi thay đổi bộ lọc
     setManualOrder([]);
   };
 
   const handleSortChange = (sortType: 'createdAt' | 'dueDate') => {
     setSortType(sortType);
-    // Reset thứ tự thủ công khi thay đổi kiểu sắp xếp
     setManualOrder([]);
   };
 
   const handleToggleSortOrder = () => {
     setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
-    // Reset thứ tự thủ công khi thay đổi thứ tự sắp xếp
     setManualOrder([]);
   };
 
-  const getFilteredTodos = () => {
-    let filtered = todos;
-    
-    // Áp dụng bộ lọc
-    switch (filterType) {
-      case 'completed':
-        filtered = todos.filter((todo) => todo.completed);
-        break;
-      case 'active':
-        filtered = todos.filter((todo) => !todo.completed);
-        break;
-      case 'has-due-date':
-        filtered = todos.filter((todo) => todo.dueDate);
-        break;
-    }
-
-    // Áp dụng tìm kiếm
-    if (searchQuery) {
-      filtered = filtered.filter(todo =>
-        todo.text.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Nếu có thứ tự thủ công, sử dụng thứ tự đó
-    if (manualOrder.length > 0) {
-      const orderMap = new Map(manualOrder.map((id, index) => [id, index]));
-      return filtered.sort((a, b) => {
-        const aIndex = orderMap.get(a.id) ?? Infinity;
-        const bIndex = orderMap.get(b.id) ?? Infinity;
-        return aIndex - bIndex;
-      });
-    }
-
-    // Nếu không có thứ tự thủ công, sử dụng sắp xếp tự động
-    return filtered.sort((a, b) => {
-      const aDate =
-        sortType === 'createdAt'
-          ? new Date(a.createdAt)
-          : a.dueDate
-          ? new Date(a.dueDate)
-          : new Date(0);
-      const bDate =
-        sortType === 'createdAt'
-          ? new Date(b.createdAt)
-          : b.dueDate
-          ? new Date(b.dueDate)
-          : new Date(0);
-      return sortOrder === 'desc'
-        ? bDate.getTime() - aDate.getTime()
-        : aDate.getTime() - bDate.getTime();
-    });
-  };
-
-  const handleDragStart = () => {
-    setIsDragging(true);
-    // Lưu thứ tự hiện tại khi bắt đầu kéo
+  const handleReorderTodo = (activeId: string, overId: string) => {
     if (manualOrder.length === 0) {
-      setManualOrder(todos.map(todo => todo.id));
+      setManualOrder(todos.map((todo) => todo.id));
     }
-  };
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
+    const oldIndex = manualOrder.indexOf(activeId);
+    const newIndex = manualOrder.indexOf(overId);
+    const newOrder = [...manualOrder];
+    const [movedId] = newOrder.splice(oldIndex, 1);
+    newOrder.splice(newIndex, 0, movedId);
+    setManualOrder(newOrder);
 
-  const handleReorder = (activeId: string, overId: string) => {
-    reorderTodo(activeId, overId);
-    // Cập nhật thứ tự thủ công
-    setManualOrder(prev => {
-      const oldIndex = prev.indexOf(activeId);
-      const newIndex = prev.indexOf(overId);
-      const newOrder = [...prev];
-      const [removed] = newOrder.splice(oldIndex, 1);
-      newOrder.splice(newIndex, 0, removed);
-      return newOrder;
-    });
+    const reorderedTodos = newOrder
+      .map((id) => todos.find((todo) => todo.id === id))
+      .filter((todo): todo is Todo => todo !== undefined);
+    updateTodos(reorderedTodos);
   };
 
   const handleSelectAll = () => {
-    const filteredTodos = getFilteredTodos();
-    const allCompleted = filteredTodos.every(todo => todo.completed);
-    
-    if (allCompleted) {
-      // Deselect all
-      filteredTodos.forEach(todo => {
-        if (todo.completed) {
-          toggleTodo(todo.id);
-        }
-      });
-    } else {
-      // Select all
-      filteredTodos.forEach(todo => {
-        if (!todo.completed) {
-          toggleTodo(todo.id);
-        }
-      });
-    }
-    
-    setIsAllSelected(!allCompleted);
+    const newTodos = todos.map(todo => ({
+      ...todo,
+      completed: !isAllSelected
+    }));
+    updateTodos(newTodos);
+    setIsAllSelected(!isAllSelected);
   };
 
   const handleDeleteAll = () => {
-    const filteredTodos = getFilteredTodos();
-    const completedTodos = filteredTodos.filter(todo => todo.completed);
-    completedTodos.forEach(todo => deleteTodo(todo.id));
+    const newTodos = todos.filter(todo => !todo.completed);
+    updateTodos(newTodos);
+    setIsAllSelected(false);
   };
 
-  const filteredTodos = getFilteredTodos();
+  const filteredTodos = todos.filter((todo) => {
+    if (searchQuery) {
+      const searchLower = searchQuery.toLowerCase();
+      if (!todo.text.toLowerCase().includes(searchLower)) {
+        return false;
+      }
+    }
+
+    switch (filterType) {
+      case 'completed':
+        return todo.completed;
+      case 'active':
+        return !todo.completed;
+      case 'has-due-date':
+        return !!todo.dueDate;
+      case 'all':
+      default:
+        return true;
+    }
+  });
+
+  const sortedTodos = [...filteredTodos].sort((a, b) => {
+    if (manualOrder.length > 0) {
+      return manualOrder.indexOf(a.id) - manualOrder.indexOf(b.id);
+    }
+
+    const aValue = sortType === 'createdAt' ? a.createdAt : a.dueDate || '';
+    const bValue = sortType === 'createdAt' ? b.createdAt : b.dueDate || '';
+
+    if (sortOrder === 'asc') {
+      return aValue.localeCompare(bValue);
+    }
+    return bValue.localeCompare(aValue);
+  });
+
   const hasSelectedItems = filteredTodos.some(todo => todo.completed);
 
   const getEmptyMessage = () => {
@@ -167,7 +124,7 @@ export function PageHome() {
         <AddInput onAdd={addTodo} />
         <SearchInput onSearch={setSearchQuery} />
         <hr className="border border-t border-gray-600 opacity-25" />
-        <div className="flex flex-col xl:flex-row md:gap-4  sm:justify-between gap-4 sm:gap-0 items-center">
+        <div className="flex flex-col xl:flex-row md:gap-4 sm:justify-between gap-4 sm:gap-0 items-center">
           <div className="w-full sm:w-auto">
             <BulkActions
               onSelectAll={handleSelectAll}
@@ -186,20 +143,20 @@ export function PageHome() {
           </div>
         </div>
 
-        {filteredTodos.length > 0 ? (
+        {sortedTodos.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500">{getEmptyMessage()}</p>
+          </div>
+        ) : (
           <TodoLists
-            todos={filteredTodos}
+            todos={sortedTodos}
             onDeleteTodo={deleteTodo}
             onEditTodo={editTodo}
             onToggleTodo={toggleTodo}
-            onReorderTodo={handleReorder}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
+            onReorderTodo={handleReorderTodo}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={() => setIsDragging(false)}
           />
-        ) : (
-          <div className="text-center text-gray-500 py-10">
-            {getEmptyMessage()}
-          </div>
         )}
       </div>
     </div>

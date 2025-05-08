@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Todo } from '../types/todo';
-import { arrayMove } from '@dnd-kit/sortable';
+import { useState } from 'react';
+import { Todo } from '@/types/todo';
 
-export function useTodo() {
+export function useTodoOperations() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = (text: string, dueDate?: Date) => {
@@ -48,37 +47,12 @@ export function useTodo() {
     setTodos(newTodos);
   };
 
-  const reorderTodo = useCallback((activeId: string, overId: string) => {
-    setTodos((items) => {
-      const oldIndex = items.findIndex((item) => item.id === activeId);
-      const newIndex = items.findIndex((item) => item.id === overId);
-      
-      return arrayMove(items, oldIndex, newIndex);
-    });
-  }, []);
-
-  const filterTodos = useCallback((filterType: string) => {
-    switch (filterType) {
-      case 'completed':
-        return todos.filter(todo => todo.completed);
-      case 'active':
-        return todos.filter(todo => !todo.completed);
-      case 'has-due-date':
-        return todos.filter(todo => todo.dueDate);
-      case 'all':
-      default:
-        return todos;
-    }
-  }, [todos]);
-
   return {
     todos,
     addTodo,
     deleteTodo,
     editTodo,
     toggleTodo,
-    reorderTodo,
-    filterTodos,
     updateTodos,
   };
-}
+} 
