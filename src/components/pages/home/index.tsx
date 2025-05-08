@@ -4,6 +4,7 @@ import { Heading } from '@/components/feature/organisms/heading';
 import { AddInput } from '@/components/feature/organisms/addInput';
 import { SearchInput } from '@/components/feature/organisms/searchInput';
 import { TodoLists } from '@/components/feature/organisms/todoLists';
+import { BulkActions } from '@/components/feature/molecules/bulkActions';
 import { useTodo } from '@/hooks/useTodo';
 import { Todo } from '@/types/todo';
 
@@ -15,6 +16,7 @@ export function PageHome() {
   const [isDragging, setIsDragging] = useState(false);
   const [manualOrder, setManualOrder] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
@@ -112,7 +114,37 @@ export function PageHome() {
     });
   };
 
+  const handleSelectAll = () => {
+    const filteredTodos = getFilteredTodos();
+    const allCompleted = filteredTodos.every(todo => todo.completed);
+    
+    if (allCompleted) {
+      // Deselect all
+      filteredTodos.forEach(todo => {
+        if (todo.completed) {
+          toggleTodo(todo.id);
+        }
+      });
+    } else {
+      // Select all
+      filteredTodos.forEach(todo => {
+        if (!todo.completed) {
+          toggleTodo(todo.id);
+        }
+      });
+    }
+    
+    setIsAllSelected(!allCompleted);
+  };
+
+  const handleDeleteAll = () => {
+    const filteredTodos = getFilteredTodos();
+    const completedTodos = filteredTodos.filter(todo => todo.completed);
+    completedTodos.forEach(todo => deleteTodo(todo.id));
+  };
+
   const filteredTodos = getFilteredTodos();
+  const hasSelectedItems = filteredTodos.some(todo => todo.completed);
 
   const getEmptyMessage = () => {
     switch (filterType) {
@@ -135,13 +167,23 @@ export function PageHome() {
         <AddInput onAdd={addTodo} />
         <SearchInput onSearch={setSearchQuery} />
         <hr className="border border-t border-gray-600 opacity-25" />
-        <div className="flex sm:justify-end justify-center items-center">
-          <Actions
-            onFilterChange={handleFilterChange}
-            onSortChange={handleSortChange}
-            sortOrder={sortOrder}
-            onToggleSortOrder={handleToggleSortOrder}
-          />
+        <div className="flex flex-col xl:flex-row md:gap-4  sm:justify-between gap-4 sm:gap-0 items-center">
+          <div className="w-full sm:w-auto">
+            <BulkActions
+              onSelectAll={handleSelectAll}
+              onDeleteAll={handleDeleteAll}
+              isAllSelected={isAllSelected}
+              hasSelectedItems={hasSelectedItems}
+            />
+          </div>
+          <div className="w-full sm:w-auto">
+            <Actions
+              onFilterChange={handleFilterChange}
+              onSortChange={handleSortChange}
+              sortOrder={sortOrder}
+              onToggleSortOrder={handleToggleSortOrder}
+            />
+          </div>
         </div>
 
         {filteredTodos.length > 0 ? (

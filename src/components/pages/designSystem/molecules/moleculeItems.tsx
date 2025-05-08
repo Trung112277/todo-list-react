@@ -5,11 +5,14 @@ import { Sort } from '@/components/feature/molecules/sort';
 import { DueDateBox } from '@/components/feature/molecules/dueDateBox';
 import { FeatureBox } from '@/components/feature/molecules/featureBox';
 import { TodoItem } from '@/components/feature/molecules/todoItem';
+import { BulkActions } from '@/components/feature/molecules/bulkActions';
 
 export function MoleculeItems() {
   const [filterType, setFilterType] = useState('all');
   const [sortType, setSortType] = useState<'createdAt' | 'dueDate'>('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [hasSelectedItems, setHasSelectedItems] = useState(false);
 
   const exampleTodo = {
     id: '1',
@@ -52,6 +55,15 @@ export function MoleculeItems() {
           createdAt={exampleTodo.createdAt}
           onDelete={noop}
           onEdit={noop}
+        />
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Bulk actions:</h3>
+        <BulkActions
+          onSelectAll={() => setIsAllSelected(!isAllSelected)}
+          onDeleteAll={noop}
+          isAllSelected={isAllSelected}
+          hasSelectedItems={hasSelectedItems}
         />
       </div>
       <div className="flex flex-col gap-5 items-center">
