@@ -34,7 +34,7 @@ export function AddInput({ onAdd }: AddInputProps) {
         <Input
           type="text" 
           placeholder="Add new..." 
-          className="pr-36"
+          className="pr-36 md:pr-40 xl:pr-40"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />

@@ -21,7 +21,7 @@ const SortToggleIcon = ({ sortOrder, onToggleSortOrder }: SortToggleIconProps) =
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <ButtonIcon onClick={onToggleSortOrder} className="text-green-500">
             <FontAwesomeIcon
               icon={sortOrder === 'desc' ? faArrowDownShortWide : faArrowUpShortWide}

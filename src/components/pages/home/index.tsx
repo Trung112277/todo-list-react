@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Actions } from '@/components/feature/organisms/actions';
 import { Heading } from '@/components/feature/organisms/heading';
 import { AddInput } from '@/components/feature/organisms/addInput';
+import { SearchInput } from '@/components/feature/organisms/searchInput';
 import { TodoLists } from '@/components/feature/organisms/todoLists';
 import { useTodo } from '@/hooks/useTodo';
 import { Todo } from '@/types/todo';
@@ -13,6 +14,7 @@ export function PageHome() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [isDragging, setIsDragging] = useState(false);
   const [manualOrder, setManualOrder] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
@@ -46,6 +48,13 @@ export function PageHome() {
       case 'has-due-date':
         filtered = todos.filter((todo) => todo.dueDate);
         break;
+    }
+
+    // Áp dụng tìm kiếm
+    if (searchQuery) {
+      filtered = filtered.filter(todo =>
+        todo.text.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     // Nếu có thứ tự thủ công, sử dụng thứ tự đó
@@ -124,6 +133,7 @@ export function PageHome() {
       <div className="flex flex-col xl:gap-10 gap-7 bg-gray-100 rounded-lg shadow-lg xl:p-10 p-6">
         <Heading />
         <AddInput onAdd={addTodo} />
+        <SearchInput onSearch={setSearchQuery} />
         <hr className="border border-t border-gray-600 opacity-25" />
         <div className="flex sm:justify-end justify-center items-center">
           <Actions

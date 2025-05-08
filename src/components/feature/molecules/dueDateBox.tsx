@@ -27,7 +27,7 @@ export function DueDateBox({ dueDate, completed, completedAt }: DueDateBoxProps)
       <div className="flex gap-3 items-center border px-4 py-2 rounded-md sm:w-fit sm:min-w-[170px] bg-green-50 border-green-600 text-green-600 transition-colors w-full max-w-[170px]">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <ButtonIcon className="text-green-600 hover:scale-110 transition-transform">
                 <FontAwesomeIcon icon={faCheckCircle} />
               </ButtonIcon>
@@ -98,7 +98,7 @@ export function DueDateBox({ dueDate, completed, completedAt }: DueDateBoxProps)
     >
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <ButtonIcon
               className={`${iconColor} hover:scale-110 transition-transform`}
             >

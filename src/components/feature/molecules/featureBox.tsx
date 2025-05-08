@@ -79,19 +79,21 @@ export function FeatureBox({ createdAt, onDelete, onEdit }: FeatureBoxProps) {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="flex items-center gap-3 md:mt-2 mt-0">
-              <ButtonIcon
-                className="text-[10px] bg-gray-500 text-white rounded-full p-0 w-5 h-5 flex justify-center items-center "
-                aria-label="Creation date"
-              >
-                <FontAwesomeIcon icon={faInfo} size="xs" />
-              </ButtonIcon>
-              <time
-                className="font-medium text-gray-500 text-sm"
-                dateTime={createdAt}
-              >
-                {format(new Date(createdAt), 'MMM dd, yyyy')}
-              </time>
+            <TooltipTrigger asChild>
+              <div className="flex items-center gap-3 md:mt-2 mt-0">
+                <ButtonIcon
+                  className="text-[10px] bg-gray-500 text-white rounded-full p-0 w-5 h-5 flex justify-center items-center "
+                  aria-label="Creation date"
+                >
+                  <FontAwesomeIcon icon={faInfo} size="xs" />
+                </ButtonIcon>
+                <time
+                  className="font-medium text-gray-500 text-sm"
+                  dateTime={createdAt}
+                >
+                  {format(new Date(createdAt), 'MMM dd, yyyy')}
+                </time>
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Created at: {format(new Date(createdAt), 'PPpp')}</p>
