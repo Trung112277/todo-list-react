@@ -27,7 +27,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from '@radix-ui/react-popover';
+} from '@/components/ui/popover';
 import {
   Tooltip,
   TooltipContent,
@@ -38,6 +38,12 @@ import SortToggleIcon from '@/components/ui/SortToggleIcon';
 
 export function AtomItems() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('desc');
+
+  const handleToggleSortOrder = () => {
+    setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex gap-5 items-center">
@@ -60,7 +66,9 @@ export function AtomItems() {
         <h3 className="text-3xl font-medium min-w-40">Tooltip:</h3>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>Tooltip</TooltipTrigger>
+            <TooltipTrigger asChild>
+              <Button>Tooltip</Button>
+            </TooltipTrigger>
             <TooltipContent>
               <p>Add to library</p>
             </TooltipContent>
@@ -83,7 +91,9 @@ export function AtomItems() {
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Popover :</h3>
         <Popover>
-          <PopoverTrigger>Open</PopoverTrigger>
+          <PopoverTrigger asChild>
+            <Button>Open</Button>
+          </PopoverTrigger>
           <PopoverContent>Place content for the popover here.</PopoverContent>
         </Popover>
       </div>
@@ -93,8 +103,12 @@ export function AtomItems() {
           mode="single"
           selected={date}
           onSelect={setDate}
-          className="rounded-md border shadow"
+          className="rounded-md border"
         />
+      </div>
+      <div className="flex gap-5 items-center">
+        <h3 className="text-3xl font-medium min-w-40">Divider:</h3>
+        <hr className="border border-t border-gray-600 opacity-25 w-full" />
       </div>
       <div className="flex gap-5 items-center">
         <h3 className="text-3xl font-medium min-w-40">Icon button:</h3>
@@ -119,9 +133,7 @@ export function AtomItems() {
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Sort:</h4>
-            <SortToggleIcon sortOrder={'desc'} onToggleSortOrder={function (): void {
-              throw new Error('Function not implemented.');
-            } } />
+            <SortToggleIcon sortOrder={sortOrder} onToggleSortOrder={handleToggleSortOrder} />
           </div>
           <div className="flex gap-3 items-center">
             <h4 className="text-xl font-medium">Infor:</h4>

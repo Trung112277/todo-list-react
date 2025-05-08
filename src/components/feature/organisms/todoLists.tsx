@@ -78,7 +78,7 @@ export function TodoLists({
         items={todos.map((todo) => todo.id)}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="flex flex-col md:gap-5 gap-3">
+        <ul className="flex flex-col md:gap-5 gap-3 w-full">
           {todos.map((todo) => (
             <TodoItem
               key={todo.id}

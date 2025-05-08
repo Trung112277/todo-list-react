@@ -18,7 +18,7 @@ export function SearchInput({ onSearch }: SearchInputProps) {
         <Input
           type="text"
           placeholder="Search todos..."
-          className="pr-36"
+          className="pr-10 md:pr-11 xl:pr-12 "
           onChange={(e) => onSearch(e.target.value)}
         />
         <div className="absolute w-fit flex gap-5 xl:right-[1.25rem] md:right-[1rem] right-[0.75rem] top-[50%] transform -translate-y-1/2 items-center">
