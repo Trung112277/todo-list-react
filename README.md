@@ -123,7 +123,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+- Nhật Trung - Initial work - [Trung112277](https://github.com/Trung112277/)
 
 ## 🙏 Acknowledgments
 
