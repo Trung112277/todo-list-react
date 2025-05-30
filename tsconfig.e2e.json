@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "outDir": "./dist/e2e",
+    "sourceMap": true,
+    "types": ["node", "playwright"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "e2e/**/*.ts",
+    "e2e/**/*.js",
+    "e2e/playwright.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+} 

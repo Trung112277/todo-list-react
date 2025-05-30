@@ -6,49 +6,40 @@ import { SearchInput } from '@/components/feature/organisms/searchInput';
 import { TodoLists } from '@/components/feature/organisms/todoLists';
 import { BulkActions } from '@/components/feature/molecules/bulkActions';
 import { useTodo } from '@/hooks/useTodo';
+import { useDragDrop } from '@/hooks/useDragDrop';
 import type { Todo } from '@/types/todo';
 
 export function PageHome() {
-  const { todos, addTodo, deleteTodo, editTodo, toggleTodo, reorderTodo, updateTodos } = useTodo();
+  const { todos, addTodo, deleteTodo, editTodo, toggleTodo, updateTodos } = useTodo();
   const [filterType, setFilterType] = useState('all');
   const [sortType, setSortType] = useState<'createdAt' | 'dueDate'>('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [isDragging, setIsDragging] = useState(false);
-  const [manualOrder, setManualOrder] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isAllSelected, setIsAllSelected] = useState(false);
+  const [manualOrder, setManualOrder] = useState<string[]>([]);
+
+  const {
+    isDragging,
+    handleDragStart,
+    handleDragEnd,
+    handleReorderTodo,
+  } = useDragDrop(todos, (newTodos) => {
+    updateTodos(newTodos);
+    setManualOrder(newTodos.map(todo => todo.id));
+  });
 
   const handleFilterChange = (filterType: string) => {
     setFilterType(filterType);
-    setManualOrder([]);
   };
 
   const handleSortChange = (sortType: 'createdAt' | 'dueDate') => {
     setSortType(sortType);
-    setManualOrder([]);
+    setManualOrder([]); // Reset manual order when changing sort type
   };
 
   const handleToggleSortOrder = () => {
     setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
-    setManualOrder([]);
-  };
-
-  const handleReorderTodo = (activeId: string, overId: string) => {
-    if (manualOrder.length === 0) {
-      setManualOrder(todos.map((todo) => todo.id));
-    }
-
-    const oldIndex = manualOrder.indexOf(activeId);
-    const newIndex = manualOrder.indexOf(overId);
-    const newOrder = [...manualOrder];
-    const [movedId] = newOrder.splice(oldIndex, 1);
-    newOrder.splice(newIndex, 0, movedId);
-    setManualOrder(newOrder);
-
-    const reorderedTodos = newOrder
-      .map((id) => todos.find((todo) => todo.id === id))
-      .filter((todo): todo is Todo => todo !== undefined);
-    updateTodos(reorderedTodos);
+    setManualOrder([]); // Reset manual order when changing sort order
   };
 
   const handleSelectAll = () => {
@@ -88,10 +79,12 @@ export function PageHome() {
   });
 
   const sortedTodos = [...filteredTodos].sort((a, b) => {
+    // If we have a manual order, use it
     if (manualOrder.length > 0) {
       return manualOrder.indexOf(a.id) - manualOrder.indexOf(b.id);
     }
 
+    // Otherwise use the regular sorting
     const aValue = sortType === 'createdAt' ? a.createdAt : a.dueDate || '';
     const bValue = sortType === 'createdAt' ? b.createdAt : b.dueDate || '';
 
@@ -154,8 +147,8 @@ export function PageHome() {
             onEditTodo={editTodo}
             onToggleTodo={toggleTodo}
             onReorderTodo={handleReorderTodo}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={() => setIsDragging(false)}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
           />
         )}
       </div>
